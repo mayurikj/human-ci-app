@@ -74,10 +74,6 @@ input:focus{
     box-shadow:0 8px 18px rgba(79,70,229,.35);
 }
 
-.calc-btn:hover{
-    transform:scale(1.02);
-}
-
 .result{
     margin-top:25px;
     padding:18px;
@@ -87,7 +83,8 @@ input:focus{
 }
 
 .total{
-    font-size:22px;
+    font-size:26px;
+    font-weight:bold;
     color:#16a34a;
     margin-top:10px;
 }
@@ -170,16 +167,16 @@ function calculate(){
     const remainingMonths = months + days/30;
     const remainingInterest = amountAfterYears * monthlyRate * remainingMonths;
     const finalAmount = amountAfterYears + remainingInterest;
+    const totalInterest = finalAmount - P;
 
     const format = num => Number(num).toLocaleString('en-IN',{minimumFractionDigits:2});
 
-document.getElementById("output").innerHTML = `
-<div class="result">
-    Duration: ${years}y ${months}m ${days}d <br>
-    Total Interest: ₹${format(totalInterest)}
-    <div class="total">₹${format(finalAmount)}</div>
-</div>`;
-
+    document.getElementById("output").innerHTML = `
+    <div class="result">
+        Duration: ${years}y ${months}m ${days}d <br>
+        Total Interest: ₹${format(totalInterest)}
+        <div class="total">₹${format(finalAmount)}</div>
+    </div>`;
 }
 
 if ("serviceWorker" in navigator) {
