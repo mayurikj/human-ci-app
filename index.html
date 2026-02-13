@@ -4,7 +4,6 @@
 <meta charset="UTF-8">
 <title>GL Calculator</title>
 
-<!-- PWA -->
 <link rel="manifest" href="./manifest.json">
 <meta name="theme-color" content="#ffffff">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -30,7 +29,6 @@ input{
 button{
     padding:10px 16px;
     cursor:pointer;
-    margin-right:8px;
 }
 .result{
     margin-top:20px;
@@ -41,6 +39,16 @@ button{
     font-size:12px;
     color:#666;
     margin-top:25px;
+}
+.calc-btn{
+    width:100%;
+    background:#0f172a;
+    color:white;
+    padding:14px;
+    font-size:18px;
+    border:none;
+    border-radius:8px;
+    margin-top:10px;
 }
 </style>
 </head>
@@ -60,10 +68,12 @@ button{
 <input type="date" id="startDate" value="2021-04-07">
 
 <label>End Date</label>
-<input type="date" id="endDate">
+<div style="display:flex; gap:10px; margin-bottom:15px;">
+    <input type="date" id="endDate" style="flex:1;">
+    <button onclick="setToday()">Today</button>
+</div>
 
-<button onclick="setToday()">Today</button>
-<button onclick="calculate()">Calculate</button>
+<button class="calc-btn" onclick="calculate()">Calculate</button>
 
 <div id="output" class="result"></div>
 
@@ -120,10 +130,7 @@ function calculate(){
         TOTAL AMOUNT: ₹${finalAmount.toFixed(2)}
     `;
 }
-</script>
 
-<!-- Service Worker -->
-<script>
 if ("serviceWorker" in navigator) {
     navigator.serviceWorker.register('./service-worker.js');
 }
