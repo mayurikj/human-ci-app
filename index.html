@@ -5,50 +5,98 @@
 <title>GL Calculator</title>
 
 <link rel="manifest" href="./manifest.json">
-<meta name="theme-color" content="#ffffff">
+<meta name="theme-color" content="#4f46e5">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
+*{box-sizing:border-box}
+
 body{
-    font-family: Arial;
-    background:#f3f6fb;
-    padding:30px;
+    font-family: 'Segoe UI', sans-serif;
+    background: linear-gradient(135deg,#eef2ff,#f8fafc);
+    padding:20px;
 }
+
 .card{
-    background:#fff;
-    max-width:650px;
-    padding:25px;
-    border-radius:12px;
-    box-shadow:0 0 10px #ddd;
+    background:white;
+    max-width:520px;
+    margin:auto;
+    padding:28px;
+    border-radius:18px;
+    box-shadow:0 20px 40px rgba(0,0,0,0.1);
 }
+
+h2{
+    text-align:center;
+    margin-bottom:25px;
+    color:#1e293b;
+}
+
+label{
+    font-weight:600;
+    color:#334155;
+}
+
 input{
     width:100%;
-    padding:8px;
-    margin:6px 0 14px;
+    padding:12px;
+    margin:8px 0 18px;
+    border-radius:10px;
+    border:1px solid #cbd5e1;
+    font-size:15px;
 }
-button{
-    padding:10px 16px;
+
+input:focus{
+    outline:none;
+    border-color:#6366f1;
+    box-shadow:0 0 0 2px #e0e7ff;
+}
+
+.today-btn{
+    background:#e0e7ff;
+    border:none;
+    border-radius:10px;
+    padding:12px 14px;
+    font-weight:600;
     cursor:pointer;
 }
-.result{
-    margin-top:20px;
+
+.calc-btn{
+    width:100%;
+    background: linear-gradient(135deg,#6366f1,#4f46e5);
+    color:white;
+    padding:16px;
+    font-size:18px;
+    border:none;
+    border-radius:12px;
+    margin-top:10px;
     font-weight:bold;
+    box-shadow:0 8px 18px rgba(79,70,229,.35);
 }
+
+.calc-btn:hover{
+    transform:scale(1.02);
+}
+
+.result{
+    margin-top:25px;
+    padding:18px;
+    border-radius:14px;
+    background:#f1f5f9;
+    line-height:1.7;
+}
+
+.total{
+    font-size:22px;
+    color:#16a34a;
+    margin-top:10px;
+}
+
 .footer{
     text-align:center;
     font-size:12px;
-    color:#666;
+    color:#94a3b8;
     margin-top:25px;
-}
-.calc-btn{
-    width:100%;
-    background:#0f172a;
-    color:white;
-    padding:14px;
-    font-size:18px;
-    border:none;
-    border-radius:8px;
-    margin-top:10px;
 }
 </style>
 </head>
@@ -58,24 +106,24 @@ button{
 <div class="card">
 <h2>GL Calculator</h2>
 
-<label>Principal</label>
+<label>Principal Amount</label>
 <input type="number" id="principal" value="50000">
 
-<label>Annual Interest Rate (%)</label>
+<label>Interest Rate (% per year)</label>
 <input type="number" id="rate" value="24">
 
 <label>Start Date</label>
 <input type="date" id="startDate" value="2021-04-07">
 
 <label>End Date</label>
-<div style="display:flex; gap:10px; margin-bottom:15px;">
+<div style="display:flex; gap:10px;">
     <input type="date" id="endDate" style="flex:1;">
-    <button onclick="setToday()">Today</button>
+    <button class="today-btn" onclick="setToday()">Today</button>
 </div>
 
-<button class="calc-btn" onclick="calculate()">Calculate</button>
+<button class="calc-btn" onclick="calculate()">Calculate Amount</button>
 
-<div id="output" class="result"></div>
+<div id="output"></div>
 
 <p class="footer">Powered by Mayuri</p>
 </div>
@@ -98,7 +146,7 @@ function calculate(){
     const end = new Date(endInput);
 
     if(isNaN(start) || isNaN(end) || end < start){
-        document.getElementById("output").innerText="Invalid dates";
+        document.getElementById("output").innerHTML="<div class='result'>Invalid dates</div>";
         return;
     }
 
@@ -124,11 +172,12 @@ function calculate(){
     const finalAmount = amountAfterYears + remainingInterest;
 
     document.getElementById("output").innerHTML = `
-        Duration: ${years} Years ${months} Months ${days} Days <br><br>
-        Amount after ${years} years: ₹${amountAfterYears.toFixed(2)} <br>
-        Remaining Interest: ₹${remainingInterest.toFixed(2)} <br><br>
-        TOTAL AMOUNT: ₹${finalAmount.toFixed(2)}
-    `;
+    <div class="result">
+        Duration: ${years}y ${months}m ${days}d <br>
+        Amount after years: ₹${amountAfterYears.toFixed(2)} <br>
+        Remaining Interest: ₹${remainingInterest.toFixed(2)}
+        <div class="total">₹${finalAmount.toFixed(2)}</div>
+    </div>`;
 }
 
 if ("serviceWorker" in navigator) {
