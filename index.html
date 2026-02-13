@@ -171,13 +171,15 @@ function calculate(){
     const remainingInterest = amountAfterYears * monthlyRate * remainingMonths;
     const finalAmount = amountAfterYears + remainingInterest;
 
-    document.getElementById("output").innerHTML = `
-    <div class="result">
-        Duration: ${years}y ${months}m ${days}d <br>
-        Amount after years: ₹${amountAfterYears.toFixed(2)} <br>
-        Remaining Interest: ₹${remainingInterest.toFixed(2)}
-        <div class="total">₹${finalAmount.toFixed(2)}</div>
-    </div>`;
+    const format = num => Number(num).toLocaleString('en-IN',{minimumFractionDigits:2});
+
+document.getElementById("output").innerHTML = `
+<div class="result">
+    Duration: ${years}y ${months}m ${days}d <br>
+    Total Interest: ₹${format(totalInterest)}
+    <div class="total">₹${format(finalAmount)}</div>
+</div>`;
+
 }
 
 if ("serviceWorker" in navigator) {
