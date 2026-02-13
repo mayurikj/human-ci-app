@@ -1,11 +1,11 @@
 {
-  "name": "Human CI Calculator",
-  "short_name": "CI App",
-  "start_url": "./index.html",
-  "scope": "./",
+  "name": "GL Calculator",
+  "short_name": "GL Calc",
+  "id": "/index.html",
+  "start_url": "/index.html",
   "display": "standalone",
-  "background_color": "#ffffff",
-  "theme_color": "#4CAF50",
+  "background_color": "#f5f7fa",
+  "theme_color": "#0f172a",
   "icons": [
     {
       "src": "icon-192.png",
