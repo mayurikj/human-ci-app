@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Human Compound Interest Calculator</title>
+
+<!-- STEP 5 PWA HEAD CODE -->
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#ffffff">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+body{
+    font-family: Arial;
+    background:#f3f6fb;
+    padding:30px;
+}
+.card{
+    background:#fff;
+    max-width:650px;
+    padding:25px;
+    border-radius:12px;
+    box-shadow:0 0 10px #ddd;
+}
+input{
+    width:100%;
+    padding:8px;
+    margin:6px 0 14px;
+}
+button{
+    padding:10px 16px;
+    cursor:pointer;
+    margin-right:8px;
+}
+.result{
+    margin-top:20px;
+    font-weight:bold;
+}
+</style>
+</head>
+
+<body>
+
+<div class="card">
+<h2>Human Compound Interest Calculator</h2>
+
+<label>Principal</label>
+<input type="number" id="principal" value="50000">
+
+<label>Annual Interest Rate (%)</label>
+<input type="number" id="rate" value="24">
+
+<label>Start Date</label>
+<input type="date" id="startDate" value="2021-04-07">
+
+<label>End Date</label>
+<input type="date" id="endDate">
+
+<button onclick="setToday()">Today</button>
+<button onclick="calculate()">Calculate</button>
+
+<div id="output" class="result"></div>
+</div>
+
+<script>
+const today = new Date().toISOString().split("T")[0];
+document.getElementById("endDate").value = today;
+
+function setToday(){
+    document.getElementById("endDate").value = today;
+}
+
+function calculate(){
+    const P = parseFloat(document.getElementById("principal").value);
+    const annualRate = parseFloat(document.getElementById("rate").value)/100;
+    const monthlyRate = annualRate/12;
+
+    const start = new Date(document.getElementById("startDate").value);
+    const endInput = document.getElementById("endDate").value || today;
+    const end = new Date(endInput);
+
+    if(isNaN(start) || isNaN(end) || end < start){
+        document.getElementById("output").innerText="Invalid dates";
+        return;
+    }
+
+    let years = end.getFullYear() - start.getFullYear();
+    let months = end.getMonth() - start.getMonth();
+    let days = end.getDate() - start.getDate();
+
+    if(days < 0){ months--; days += 30; }
+    if(months < 0){ years--; months += 12; }
+
+    if(days <= 3) days = 0;
+    else if(days <= 17) days = 15;
+    else { months++; days = 0; }
+
+    if(months >= 12){
+        years += Math.floor(months/12);
+        months = months % 12;
+    }
+
+    const amountAfterYears = P * Math.pow(1+annualRate, years);
+    const remainingMonths = months + days/30;
+    const remainingInterest = amountAfterYears * monthlyRate * remainingMonths;
+    const finalAmount = amountAfterYears + remainingInterest;
+
+    document.getElementById("output").innerHTML = `
+        Duration: ${years} Years ${months} Months ${days} Days <br><br>
+        Amount after ${years} years: ₹${amountAfterYears.toFixed(2)} <br>
+        Remaining Interest: ₹${remainingInterest.toFixed(2)} <br><br>
+        TOTAL AMOUNT: ₹${finalAmount.toFixed(2)}
+    `;
+}
+</script>
+
+<!-- STEP 5 SERVICE WORKER CONNECTION -->
+<script>
+if ("serviceWorker" in navigator) {
+  navigator.serviceWorker.register("service-worker.js");
+}
+</script>
+
+</body>
+</html>
