@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <title>GL Calculator</title>
 
-<!-- STEP 5 PWA HEAD CODE -->
+<!-- PWA -->
 <link rel="manifest" href="./manifest.json">
 <meta name="theme-color" content="#ffffff">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -36,6 +36,12 @@ button{
     margin-top:20px;
     font-weight:bold;
 }
+.footer{
+    text-align:center;
+    font-size:12px;
+    color:#666;
+    margin-top:25px;
+}
 </style>
 </head>
 
@@ -60,6 +66,8 @@ button{
 <button onclick="calculate()">Calculate</button>
 
 <div id="output" class="result"></div>
+
+<p class="footer">Powered by Mayuri</p>
 </div>
 
 <script>
@@ -114,10 +122,10 @@ function calculate(){
 }
 </script>
 
-<!-- STEP 5 SERVICE WORKER CONNECTION -->
+<!-- Service Worker -->
 <script>
 if ("serviceWorker" in navigator) {
-navigator.serviceWorker.register('./service-worker.js');
+    navigator.serviceWorker.register('./service-worker.js');
 }
 </script>
 
