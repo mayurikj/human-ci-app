@@ -1,12 +1,11 @@
 {
-  "id": "/index.html",
   "name": "Human CI Calculator",
   "short_name": "CI App",
-  "start_url": "/index.html",
+  "start_url": "./index.html",
+  "scope": "./",
   "display": "standalone",
-  "background_color": "#f3f6fb",
-  "theme_color": "#ffffff",
-  "orientation": "portrait",
+  "background_color": "#ffffff",
+  "theme_color": "#4CAF50",
   "icons": [
     {
       "src": "icon-192.png",
